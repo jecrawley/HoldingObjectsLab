@@ -1,6 +1,10 @@
 package crawley.james.phonebook;
 
-import java.util.*;
+import java.util.Map;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by jamescrawley on 9/28/16.
@@ -8,7 +12,6 @@ import java.util.*;
 public class PhoneBook {
 
     private Map<String, List<String>> namesAndNumbers = new TreeMap<>();
-    //private List<String> numbers = new ArrayList<>();
 
     public void add (String name, String number) {
 
