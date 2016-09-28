@@ -16,7 +16,7 @@ public class PhoneBookTest {
         phoneBook.add("Joseph Brown", "(111) 222-3333");
 
         assertEquals("Joseph Brown should be added with the number (111) 222-3333",
-                      "(111) 222-3333", phoneBook.lookup("Joseph Brown"));
+                      "(111) 222-3333", phoneBook.lookup("Joseph Brown").get(0));
 
     }
 
@@ -24,7 +24,19 @@ public class PhoneBookTest {
     public void removeTest () {
 
         phoneBook.add("Joseph Brown", "(111) 222-3333");
-        phoneBook.remove("Joseph Brown");
+        phoneBook.add("Joseph Brown", "(333) 222-1111");
+        phoneBook.remove("Joseph Brown", "(111) 222-3333");
+
+        assertEquals("Only (333) 222-1111 should be in the phone book.", "(333) 222-1111",
+                      phoneBook.lookup("Joseph Brown").get(0));
+
+    }
+
+    @Test
+    public void removeRecordTest () {
+
+        phoneBook.add("Joseph Brown", "(111) 222-3333");
+        phoneBook.removeRecord("Joseph Brown");
 
         assertNull("Joseph Brown not be in the phone book.", phoneBook.lookup("Joseph Brown"));
 
@@ -46,9 +58,10 @@ public class PhoneBookTest {
 
         phoneBook.add("Joseph Brown", "(111) 222-3333");
         phoneBook.add("Benny Green", "(333) 222-1111");
-        String[] numbers = {"(333) 222-1111", "(111) 222-3333"};
+        phoneBook.add("Benny Green", "(332) 222-1111");
+        String numbers = "[(333) 222-1111, (332) 222-1111] [(111) 222-3333]";
 
-        assertArrayEquals("(111) 222-3333 should come before (333) 222-1111.", numbers, phoneBook.listNumbers());
+        assertEquals("(111) 222-3333 should come before (333) 222-1111.", numbers, phoneBook.listNumbers());
 
     }
 
@@ -56,6 +69,7 @@ public class PhoneBookTest {
     public void reverseLookupTest () {
 
         phoneBook.add("Joseph Brown", "(111) 222-3333");
+        phoneBook.add("Benny Green", "(333) 222-1111");
 
         assertEquals("Joseph Brown should be found using the number (111) 222-3333",
                 "Joseph Brown", phoneBook.reverseLookup("(111) 222-3333"));

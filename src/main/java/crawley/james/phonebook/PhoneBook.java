@@ -7,21 +7,37 @@ import java.util.*;
  */
 public class PhoneBook {
 
-    private Map<String, String> namesAndNumbers = new TreeMap<>();
+    private Map<String, List<String>> namesAndNumbers = new TreeMap<>();
+    //private List<String> numbers = new ArrayList<>();
 
     public void add (String name, String number) {
 
-        namesAndNumbers.put(name, number);
+        List<String> numbers;
+
+        if (namesAndNumbers.containsKey(name)) {
+            numbers = namesAndNumbers.get(name);
+        } else {
+            numbers = new ArrayList<>();
+        }
+        numbers.add(number);
+
+        namesAndNumbers.put(name, numbers);
 
     }
 
-    public void remove (String name) {
+    public void remove (String name, String number) {
+
+        namesAndNumbers.get(name).remove(number);
+
+    }
+
+    public void removeRecord (String name) {
 
         namesAndNumbers.remove(name);
 
     }
 
-    public String lookup (String name) {
+    public List<String> lookup (String name) {
 
         return namesAndNumbers.get(name);
 
@@ -34,7 +50,7 @@ public class PhoneBook {
 
         for (String lookupName : names) {
 
-            if (namesAndNumbers.get(lookupName).equals(number))  {
+            if (namesAndNumbers.get(lookupName).contains(number))  {
                 name = lookupName;
                 break;
             }
@@ -50,9 +66,16 @@ public class PhoneBook {
 
     }
 
-    public String[] listNumbers () {
+    public String listNumbers () {
 
-        return (namesAndNumbers.values()).toArray(new String[0]);
+        String listOfNumbers = "";
+
+        for (List<String> personNumbers: namesAndNumbers.values()) {
+
+            listOfNumbers += personNumbers.toString() + " ";
+        }
+
+        return listOfNumbers.substring(0, listOfNumbers.length() - 1);
 
     }
 }
