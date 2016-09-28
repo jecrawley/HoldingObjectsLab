@@ -27,6 +27,23 @@ public class PhoneBook {
 
     }
 
+    public String reverseLookup (String number) {
+
+        String name = null;
+        Set<String> names = namesAndNumbers.keySet();
+
+        for (String lookupName : names) {
+
+            if (namesAndNumbers.get(lookupName).equals(number))  {
+                name = lookupName;
+                break;
+            }
+        }
+
+        return name;
+
+    }
+
     public String[] listNames () {
 
         return (namesAndNumbers.keySet()).toArray(new String[0]);

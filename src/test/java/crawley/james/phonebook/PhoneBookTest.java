@@ -52,4 +52,13 @@ public class PhoneBookTest {
 
     }
 
+    @Test
+    public void reverseLookupTest () {
+
+        phoneBook.add("Joseph Brown", "(111) 222-3333");
+
+        assertEquals("Joseph Brown should be found using the number (111) 222-3333",
+                "Joseph Brown", phoneBook.reverseLookup("(111) 222-3333"));
+    }
+
 }
